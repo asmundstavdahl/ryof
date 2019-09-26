@@ -1,0 +1,24 @@
+{
+    "name": "asmundstavdahl/ryof",
+    "description": "Roll Your Own Framework",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Åsmund Stavdahl"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "asmundstavdahl/html": "^1.2",
+        "zendframework/zend-diactoros": "^2.1",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "simpletest/simpletest": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    }
+}
