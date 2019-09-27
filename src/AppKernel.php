@@ -2,30 +2,29 @@
 
 declare(strict_types=1);
 
-use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Server\RequestHandlerInterface;
 
-class AppKernel
+class AppKernel implements RequestHandlerInterface
 {
     protected $config;
+    protected $flow;
 
     function __construct(array $config)
     {
         $this->config = $config;
+        $this->flow = $config['flow'];
     }
 
     public function handle(Request $request) : Response
     {
-        foreach ($this->config['flow'] as $stageClass) {
-            $stage = new $stageClass($this->config);
-            $maybeResponse = $stage->process($request);
+        $stageClass = array_shift($this->flow);
 
-            if (is_a($maybeResponse, Response::class)) {
-                $response = $maybeResponse;
-                return $maybeResponse;
-            }
-        }
+        $stage = new $stageClass($this->config);
 
-        throw new RequestNotHandledException();
+        $response = $stage->process($request, $this);
+
+        return $response;
     }
 }

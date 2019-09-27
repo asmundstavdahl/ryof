@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class RoutingStage implements FlowStage
+class RoutingStage implements MiddlewareInterface
 {
     protected $config;
 
@@ -14,10 +16,7 @@ class RoutingStage implements FlowStage
         $this->config = $config;
     }
 
-    /**
-     * @return null|Response Returns null if no route pattern matched the query
-     */
-    public function process(Request $request)
+    public function process(Request $request, RequestHandler $handler) : Response
     {
         $uri = $request->getRequestTarget();
         $routes = $this->config['routes'];
@@ -25,13 +24,13 @@ class RoutingStage implements FlowStage
         try {
             list($callback, $matches) = self::findMatchingRoute($uri, $routes);
         } catch (NoMatchingRouteException $e) {
-            return null;
+            return $handler->handle($request);
         }
 
         if (self::arrayHasNonNumericKey($matches)) {
             $args = $this->adaptControllerArgs($callback, $matches, $this->config, $request);
         } else {
-            $args = $matches;
+            $args = array_merge([$this->config, $request], $matches);
         }
 
         return call_user_func_array($callback, $args);
@@ -92,6 +91,10 @@ class RoutingStage implements FlowStage
 
                     case 'array':
                         $safeMatchedValue = explode(',', $matchedString);
+                        break;
+
+                    case string::class:
+                        $safeMatchedValue = $matchedString;
                         break;
 
                     default:

@@ -10,8 +10,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 $config = require __DIR__ . '/../config.php';
 
-$_SERVER['REQUEST_URI'] = '/sentence/Lorem,Ipsum,Dolor,Sit,Amet';
-
 $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
     $_SERVER,
     $_GET,
