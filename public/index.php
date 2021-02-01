@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 $config = require __DIR__ . '/../config.php';
 
-$request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
+$request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
     $_SERVER,
     $_GET,
     $_POST,
