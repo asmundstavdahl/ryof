@@ -7,10 +7,9 @@ require_once __DIR__ . '/../functions.php';
 
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Laminas\Diactoros\ServerRequestFactory;
 
-$config = require __DIR__ . '/../config.php';
-
-$request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
+$request = ServerRequestFactory::fromGlobals(
     $_SERVER,
     $_GET,
     $_POST,
@@ -18,13 +17,18 @@ $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
     $_FILES
 );
 
-$app = new AppKernel($config);
+$config = require __DIR__ . '/../config/prod.php';
+$container = new MyContainer($config);
+$app = new AppKernel($container);
 
 try {
     $response = $app->handle($request);
-} catch(RequestNotHandledException $e) {
-    http_response_code(404);
-    exit("404 Not Found\n\nNo response generated.");
+} catch (Error $e) {
+    http_response_code(500);
+    exit("500 Internal Server Error");
+} catch (Exception $e) {
+    http_response_code(400);
+    exit("400 Bad Request");
 }
 
 sendResponse($response);
