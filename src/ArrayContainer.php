@@ -20,7 +20,7 @@ class ArrayContainer implements ContainerInterface
             return $this->data[$id];
         }
 
-        throw new class ("data key not found: {$id}") extends Exception implements NotFoundExceptionInterface
+        throw new class("data key not found: {$id}") extends Exception implements NotFoundExceptionInterface
         {
         };
     }

@@ -3,10 +3,10 @@
 $baseConfig = require __DIR__ . "/prod.php";
 
 $testConfigPatch = [
-    "test name" => "name",
-    "test username" => "username",
-    "test roles" => "roles",
-    Authenticator::class => new DevelopmentAuthenticator(),
+    "example name" => "name",
+    "example username" => "username",
+    "example roles" => "roles",
+    Authenticator::class => new ExampleAuthenticator(),
 ];
 
 return array_merge_recursive($baseConfig, $testConfigPatch);

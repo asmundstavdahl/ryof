@@ -10,7 +10,7 @@ use Laminas\Diactoros\Response\HtmlResponse;
 
 class NotFoundStage implements MiddlewareInterface
 {
-    public function process(Request $request, RequestHandler $handler) : Response
+    public function process(Request $request, RequestHandler $handler): Response
     {
         return new HtmlResponse("404 Not Found");
     }

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-# Unngå logging om undefined index
 if (defined("STDIN")) {
     $_SERVER["HTTP_HOST"] = "terminal";
 }
@@ -28,9 +27,9 @@ $prodConfig = [
     'publicDir' => __DIR__ . '/../public',
     'appBasePath' => '',
     Mailer::class => new SimpleMailer(),
-    Authenticator::class => new DevelopmentAuthenticator(),
+    Authenticator::class => new ExampleAuthenticator(),
 
-    'email address for error reports' => "asmund.stavdahl@ntnu.no",
+    'email address for error reports' => "asmund@localhost",
 
     'HTTP protocol' => $httpProtocol,
 ];

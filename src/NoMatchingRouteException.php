@@ -1,3 +1,5 @@
 <?php
 
-class NoMatchingRouteException extends \Exception {}
+class NoMatchingRouteException extends \Exception
+{
+}

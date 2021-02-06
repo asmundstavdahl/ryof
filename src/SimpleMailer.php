@@ -8,7 +8,7 @@ class SimpleMailer implements Mailer
     {
         $email->headers = array_merge([
             "Charset" => "utf8",
-            "From" => "ITK MaProWeb <noreply@itk.ntnu.no>",
+            "From" => "RYOF App <ryof-app@localhost>",
             "Content-Type" => "text/html; charset=UTF-8",
         ], $email->headers);
 

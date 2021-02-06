@@ -16,7 +16,7 @@ class RoutingStage implements MiddlewareInterface
         $this->config = $config;
     }
 
-    public function process(Request $request, RequestHandler $handler) : Response
+    public function process(Request $request, RequestHandler $handler): Response
     {
         $uri = $request->getRequestTarget();
         $routes = $this->config['routes'];
@@ -36,7 +36,7 @@ class RoutingStage implements MiddlewareInterface
         return call_user_func_array($callback, $args);
     }
 
-    private static function arrayHasNonNumericKey(array $arr) : bool
+    private static function arrayHasNonNumericKey(array $arr): bool
     {
         foreach (array_keys($arr) as $key) {
             if (!is_int($key)) {
@@ -50,7 +50,7 @@ class RoutingStage implements MiddlewareInterface
     /**
      * @return array [callable $callback, array $matches]
      */
-    private static function findMatchingRoute(string $uri, array $routes) : array
+    private static function findMatchingRoute(string $uri, array $routes): array
     {
         foreach ($routes as $pattern => $callback) {
             $matches = [];
@@ -69,7 +69,7 @@ class RoutingStage implements MiddlewareInterface
     /**
      * @return array Argument list to be used when invoking the callback
      */
-    private function adaptControllerArgs($callback, $matches, $config, $request) : array
+    private function adaptControllerArgs($callback, $matches, $config, $request): array
     {
         $rm = new ReflectionMethod(...$callback);
         $parameters = $rm->getParameters();
