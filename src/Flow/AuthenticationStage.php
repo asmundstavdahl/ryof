@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 use \Session;
 
-class FeideAuthenticationStage implements MiddlewareInterface
+class AuthenticationStage implements MiddlewareInterface
 {
     protected $container;
 
@@ -31,6 +31,7 @@ class FeideAuthenticationStage implements MiddlewareInterface
         $authed = $session->has("username") && $session->has("name") && $session->has("email");
         $path = getAppPathFromRequest($this->container, $request);
 
+        # See the /login and /logout routes.
         if ($path === "/login" || $path === "/logout") {
             return $handler->handle($request);
         }
