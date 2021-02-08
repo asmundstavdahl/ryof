@@ -68,16 +68,6 @@ function e(string $string): string
     return htmlspecialchars($string);
 }
 
-function tr(string $text): string
-{
-    $translations = require __DIR__ . "/translations.php";
-
-    if (array_key_exists($text, $translations)) {
-        return $translations[$text];
-    }
-    return $text;
-}
-
 /**
  * Make a host-relative link.
  *
