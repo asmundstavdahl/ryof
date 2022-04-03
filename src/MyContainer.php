@@ -7,6 +7,11 @@ use Psr\Container\NotFoundExceptionInterface;
 
 class MyContainer extends ArrayContainer
 {
+    /**
+     * @var self
+     */
+    private static $instance;
+
     public function get($id)
     {
         /**
@@ -40,5 +45,19 @@ class MyContainer extends ArrayContainer
         }
 
         return false;
+    }
+
+    public static function getInstance(): self
+    {
+        if (self::$instance === null) {
+            throw new LogicException("Container not initialized");
+        }
+
+        return self::$instance;
+    }
+
+    public static function setInstance(self $myContainer)
+    {
+        self::$instance = $myContainer;
     }
 }

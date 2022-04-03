@@ -46,12 +46,6 @@ class RoutingStage implements MiddlewareInterface
         try {
             return call_user_func_array($callback, $args);
         } catch (\PDOException $ex) {
-            /**
-             * @var ErrorReporter
-             */
-            $errorReporter = $this->container->get(ErrorReporter::class);
-            $errorReporter->report($ex);
-
             $message = $ex->getMessage();
             return new HtmlResponse(
                 render(
@@ -64,12 +58,6 @@ class RoutingStage implements MiddlewareInterface
                 )
             );
         } catch (\Throwable $ex) {
-            /**
-             * @var ErrorReporter
-             */
-            $errorReporter = $this->container->get(ErrorReporter::class);
-            $errorReporter->report($ex);
-
             $message = $ex->getMessage();
             return new HtmlResponse(
                 render(
