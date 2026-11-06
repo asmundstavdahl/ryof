@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 use Controller\AdminController;
 use Controller\MasterFormController;
+use Examples\TestController;
 use Laminas\Diactoros\Response\RedirectResponse;
 
 return [
+    '/square/(?<number>\d+)' => [TestController::class, 'square'],
     '/login' => [Controller\AuthenticationController::class, 'login'],
     '/logout' => [Controller\AuthenticationController::class, 'logout'],
 

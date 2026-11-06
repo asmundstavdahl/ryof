@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Flow;
 
 return [
+    TestStage::class,
     AssetStage::class,
     AuthenticationStage::class,
     AccessStage::class,

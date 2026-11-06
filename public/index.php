@@ -5,8 +5,6 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../functions.php';
 
-use Psr\Http\Message\RequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
 use Laminas\Diactoros\ServerRequestFactory;
 
 $request = ServerRequestFactory::fromGlobals(

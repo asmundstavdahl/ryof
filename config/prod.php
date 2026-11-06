@@ -15,7 +15,7 @@ $is_HTTPS =
 $httpProtocol = $is_HTTPS ? "https" : "http";
 
 $prodConfig = [
-    'flow'   => require __DIR__ . '/_flow.php',
+    'flow' => require __DIR__ . '/_flow.php',
     'routes' => require __DIR__ . '/_routes.php',
     'services' => require __DIR__ . '/_services.php',
     Session::class => require __DIR__ . '/_session.php',
